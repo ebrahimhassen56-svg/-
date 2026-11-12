@@ -1,0 +1,32 @@
+{
+    "kasim": {
+        "original": 0,
+        "paid": 0,
+        "yedere_dube": 0
+    },
+    "nuru": {
+        "original": 0,
+        "paid": 0,
+        "yedere_dube": 0
+    },
+    "salim": {
+        "original": 0,
+        "paid": 0,
+        "yedere_dube": 0
+    },
+    "dawud": {
+        "original": 0,
+        "paid": 0,
+        "yedere_dube": 100
+    },
+    "ahmed": {
+        "original": 0,
+        "paid": 0,
+        "yedere_dube": 0
+    },
+    "enat": {
+        "original": 0,
+        "paid": 0,
+        "yedere_dube": 100
+    }
+}

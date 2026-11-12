@@ -1,0 +1,46 @@
+{
+    "2026-06-03_13-52-26_Muhamed": {
+        "staff_name": "Muhamed",
+        "date": "2026-06-03 13:52",
+        "coll_dabo": 100,
+        "coll_birr": 900,
+        "collected_names": {
+            "kasim": 100,
+            "nuru": 0
+        },
+        "today_dube_details": {
+            "dawud": 100,
+            "ahmed": 0,
+            "salim": 0
+        },
+        "morning_load": 1000,
+        "returned": 0,
+        "cash_sold_dabo": 900,
+        "cash_sold_birr": 8100,
+        "new_dube_dabo": 100,
+        "expected_birr": 9000,
+        "actual_birr": 9000.0,
+        "diff": 0.0
+    },
+    "2026-06-03_14-02-52_Kasim": {
+        "staff_name": "Kasim",
+        "date": "2026-06-03 14:02",
+        "coll_dabo": 200,
+        "coll_birr": 1800,
+        "collected_names": {
+            "nuru": 100,
+            "salim": 100
+        },
+        "today_dube_details": {
+            "enat": 100
+        },
+        "morning_load": 1000,
+        "returned": 0,
+        "cash_sold_dabo": 900,
+        "cash_sold_birr": 8100,
+        "new_dube_dabo": 100,
+        "expected_birr": 9900,
+        "actual_birr": 8900.0,
+        "diff": -1000.0
+    }
+}
