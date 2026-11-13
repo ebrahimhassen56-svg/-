@@ -90,8 +90,8 @@ def get_ethiopian_datetime():
 DABO_WAGA = 13.50
 
 # --- 🌐 SUPABASE CLOUD DATABASE CONFIG ---
-SUPABASE_URL = "https://fcerzqxtdrlfrtqjubvz.supabase.co"
-SUPABASE_KEY = "sb_publishable_J3ZTXdoo6e3y7RYd44p6SA_PZmtVYdg"
+SUPABASE_URL = "https://zchpkeokvvhrinakhanm.supabase.co/rest/v1/"
+SUPABASE_KEY = "sb_publishable_3kndf6h3ROVT_YtgJGiiMQ_8Y_SHfbd"
 
 HEADERS = {
     "apikey": SUPABASE_KEY,
