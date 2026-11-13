@@ -6,15 +6,12 @@ import requests
 
 def get_ethiopian_datetime():
     import datetime
-    
-    # 1. የሰርቨሩን ሰዓት ወደ ኢትዮጵያ ሰዓት ማስተካከል (+3 ሰዓት)
     now = datetime.datetime.now() + datetime.timedelta(hours=3)
     
     g_year = now.year
     g_month = now.month
     g_day = now.day
     
-    # 2. የጃንዋሪ 1 ቀን የኢትዮጵያ ካላንደር መነሻ ማስተካከያ ማስላት
     is_leap = 1 if (g_year % 4 == 3) else 0
     
     if g_month > 9 or (g_month == 9 and g_day >= (11 + is_leap)):
@@ -184,7 +181,6 @@ def delete_expense(expense_id):
     url = f"{SUPABASE_URL}/rest/v1/expenses?id=eq.{expense_id}"
     requests.delete(url, headers=HEADERS)
 
-# ዳታዎችን ከCloud መጫን
 dube_mezgebiya = load_dube_record()
 staff_history = load_staff_history()
 expenses_data = load_expenses()
@@ -193,7 +189,6 @@ def get_daily_id(s_name):
     eth_now = get_ethiopian_datetime().replace(" ", "_").replace(":", "-")
     return f"{eth_now}_{s_name}"
 
-# --- 🔒 የመግቢያ ሲስተም ---
 def check_password():
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
@@ -235,7 +230,6 @@ if check_password():
         st.session_state.authenticated = False
         st.rerun()
 
-    # --- 🏠 ዋና ገጽ (Dashboard) ---
     if choice == "🏠 ዋና ገጽ (Dashboard)":
         try:
             url_exp = f"{SUPABASE_URL}/rest/v1/expenses"
@@ -277,7 +271,6 @@ if check_password():
         else:
             st.success("🎉 በአሁኑ ሰዓት ምንም ያልተሰበሰበ የዳቦ ዕዳ የለም!")
 
-    # --- 📝 [1] አዲስ ዱቤ ---
     elif choice == "📝 [1] አዲስ ዱቤ":
         st.header("📝 አዲስ ዱቤ መመዝገቢያ")
         with st.form("new_dube_form", clear_on_submit=True):
@@ -325,7 +318,6 @@ if check_password():
                     st.success("🗑 ተሰርዟል!")
                     st.rerun()
 
-    # --- 💰 [2] ዱቤ መቀበያ ---
     elif choice == "💰 [2] ዱቤ መቀበያ":
         st.header("💰 ዱቤ መቀበያ")
         s_name = st.text_input("ተቀባይ ሰራተኛ ስም").strip().capitalize()
@@ -353,7 +345,6 @@ if check_password():
                 st.success(f"✅ ከ {sel_name} ተቀብሏል!")
                 st.rerun()
 
-    # --- 📊 [3] ስራ መዝጊያ ---
     elif choice == "📊 [3] ስራ መዝጊያ":
         st.header("📊 የዕለት ስራ መዝጊያ")
         s_name = st.text_input("የሰራተኛው ስም").strip().capitalize()
@@ -443,7 +434,6 @@ if check_password():
                 st.success(f"✅ {s_name} የዛሬ ሂሳብ እና ወጪ በተሳካ ሁኔታ ተመዝግቧል!")
                 st.rerun()
 
-    # --- 📜 [4] ሪፖርት ---
     elif choice == "📜 [4] ሪፖርት":
         st.header("📊 የክትትልና የሪፖርት ማዕከል")
         st.write("---")
@@ -707,7 +697,6 @@ if check_password():
         else: 
             st.info("ምንም የሪፖርት ታሪክ የለም።")
 
-    # --- 🛠 [5] ማስተካከያ (EDIT) ---
     elif choice == "🛠 [5] ማስተካከያ (EDIT)":
         st.header("🛠 ማስተካከያ (EDIT) ማዕከል")
         opt_main = st.radio("ማስተካከል የፈለጉትን ምርጫ ይምረጡ፦", [
@@ -720,7 +709,7 @@ if check_password():
         
         if opt_main.startswith("[5]"):
             st.subheader("✏️ የሰራተኛ ስም ማሻሻያ ማዕከል")
-            st.caption("⚠️ የሰራተኛ ስም ሲቀይሩ የድሮ የዕለት ሪፖርቶች ታሪክ በሙሉ ወደ አዲሱ ስም ይዛወራል! ስሙ አስቀድሞ ካለ ከነበረው ጋር ይዋሃዳል።")
+            st.caption("⚠️ የሰራተኛ ስም ሲቀይሩ የድሮ የዕለት ሪፖርቶች ታሪክ በሙሉ ወደ አዲሱ ስም ይዛወራል!")
             
             all_staffs = sorted(list(set([r['staff_name'] for r in staff_history.values() if 'staff_name' in r])))
             
@@ -746,15 +735,11 @@ if check_password():
                                 delete_staff_record(old_id)
                                 staff_history[new_id] = r
                                     
-                            st.success(f"✅ የሰራተኛ ስም ከ '{old_staff_name}' ወደ '{new_staff_name}' ተቀይሮ የድሮው ታሪክ ጠፍቷል!")
+                            st.success(f"✅ የሰራተኛ ስም ተቀይሯል!")
                             st.rerun()
-                        else:
-                            st.info("ምንም የተቀየረ ስም የለም ወይም ስሙ ባዶ ነው።")
 
         elif opt_main.startswith("[4]"):
             st.subheader("✏️ የደንበኛ ስም ማሻሻያ ማዕከል")
-            st.caption("⚠️ ስሙን ሲቀይሩ የድሮው የዱቤ ታሪክ በሙሉ ወደ አዲሱ ስም ይዞራል! የድሮው ስም ሙሉ በሙሉ ከሲስተሙ ይጠፋል።")
-            
             all_customers = list(dube_mezgebiya.keys())
             if not all_customers:
                 st.info("ምንም የተመዘገበ ደንበኛ የለም።")
@@ -792,10 +777,8 @@ if check_password():
                                 if record_changed:
                                     save_staff_record_single(r_id, r)
                                 
-                            st.success(f"✅ የደንበኛ ስም ከ '{old_name}' ወደ '{new_name}' ተቀይሯል! የድሮው ስም ሙሉ በሙሉ ጠፍቷል።")
+                            st.success(f"✅ የደንበኛ ስም ተቀይሯል!")
                             st.rerun()
-                        else:
-                            st.info("ምንም የተቀየረ ስም የለም ወይም ስሙ ባዶ ነው።")
 
         elif opt_main.startswith("[3]"):
             s_name = st.text_input("የሰራተኛውን ስም ያስገቡ:").strip().capitalize()
@@ -819,7 +802,7 @@ if check_password():
                     sel_rec["diff"] = sel_rec["actual_birr"] - sel_rec["expected_birr"]
                     
                     save_staff_record_single(sel_id, sel_rec)
-                    st.success("✅ በተሳካ ሁኔታ ተስተካክሏል!")
+                    st.success("✅ ተስተካክሏል!")
                     st.rerun()
 
         elif opt_main.startswith("[2]"):
@@ -836,7 +819,7 @@ if check_password():
                     sel_rec["actual_birr"] = new_actual
                     sel_rec["diff"] = new_actual - sel_rec.get("expected_birr", 0)
                     save_staff_record_single(sel_id, sel_rec)
-                    st.success("✅ ያስረከበው ብር ተስተካክሏል!")
+                    st.success("✅ ተስተካክሏል!")
                     st.rerun()
 
         elif opt_main.startswith("[1]"):
@@ -881,10 +864,9 @@ if check_password():
                     
                     save_dube_record(dube_mezgebiya)
                     save_staff_record_single(sel_id, sel_rec)
-                    st.success("✅ ሂሳቡ በተሳካ ሁኔታ ተስተካክሏል!")
+                    st.success("✅ ተስተካክሏል!")
                     st.rerun()
 
-    # --- 💸 [6] ወጪ መመዝገቢያ ---
     elif "ወጪ" in choice:
         st.header("💸 የወጪ እና የዱቄት ፍጆታ መቆጣጠሪያ")
         st.write("---")
@@ -926,7 +908,6 @@ if check_password():
                         ])
                         st.dataframe(df_normal, use_container_width=True, hide_index=True)
                         
-                        st.caption("🗑 ወጪ ለመሰረዝ ከታች ይምረጡ፦")
                         exp_to_delete = st.selectbox(
                             "የሚሰረዘውን መዝገብ ይምረጡ",
                             options=normal_exps,
@@ -969,7 +950,6 @@ if check_password():
                         ])
                         st.dataframe(df_duket, use_container_width=True, hide_index=True)
                         
-                        st.caption("🗑 የዱቄት መዝገብ ለመሰረዝ ከታች ይምረጡ፦")
                         duket_to_delete = st.selectbox(
                             "የሚሰረዘውን የዱቄት መዝገብ ይምረጡ",
                             options=duket_exps,
